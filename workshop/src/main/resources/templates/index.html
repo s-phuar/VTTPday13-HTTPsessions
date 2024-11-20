@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Welcome to your login page!</h1>
+    <form method="POST" action = "/secret" data-th-object="${Login}">
+        <table>
+            <tr>
+                <td>
+                    Name: 
+                </td>
+
+                <td><input type = "text" data-th-field = "*{name}"></td>
+            </tr>
+            <tr>
+                <td>
+                    Password: 
+                </td>
+                <td>
+                    <input type = "password" data-th-field = "*{password}">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td> <button type="submit">Login</button> </td>
+                <td></td>
+             </tr>
+             <tr>
+                <td>Login attempts: </td>
+                <td><span data-th-text = "${attempts}"></span></td>
+             </tr>
+             <tr th:if="${attempts == 3}">
+                <td>Enter Captcha: 3680</td>
+                <td><input type = "text" data-th-field = "*{captcha}"></td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>

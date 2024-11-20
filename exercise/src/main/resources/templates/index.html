@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start</title>
+</head>
+<body>
+    <h1>Landing page start</h1>
+    <form method = "POST" action = "/tasks" data-th-object = "${Tasks}">
+        <table>
+            <tr>
+                <td>Task Name: </td>
+                <td><input type = "text" data-th-field = "*{name}"></td>
+            </tr>
+            <tr>
+                <td>Priority: </td>
+                <td>
+                    <select data-th-field = "*{priority}">
+                        <option value = "Low">Low</option>
+                        <option value = "Medium">Medium</option>
+                        <option value = "High">High</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="completion">Complete by:</label>
+                </td>
+                <td>
+                    <input type = "date"  data-th-field = "*{dueDate}">
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td> <button type="submit">ADD</button> </td>
+                
+                <td>     
+
+                </td>
+             </tr>
+        </table>  
+    </form>
+
+    <form method="POST" action="/exit">
+        <button type="submit">CLEAR</button>
+    </form>
+
+
+    <!-- <div data-th-if="${#lists.isEmpty(taskList)}">
+        <h3>Looks like you are free!</h3>
+    </div>
+
+    <div data-th-unless="${#lists.isEmpty(taskList)}">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th> Task Name </th>
+                    <th> Priority </th>
+                    <th> Due Date </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-th-each="t: ${taskList}" data-th-object="${t}">
+                    <td> <span data-th-text="*{name}"></span> </td>
+                    <td> <span data-th-text="*{priority}"></span> </td>
+                    <td> <span data-th-text="*{#dates.format(dueDate, 'dd MMM yyyy')}"></span> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+
+    <div data-th-if = "${#lists.isEmpty(taskList)}">
+        <h3>Looks like you're free!</h3>
+    </div>
+
+    <ol>
+        <li data-th-each = "t : ${taskList}">
+            <span data-th-text="${t.name}"></span>
+            <span data-th-text="${t.priority}"></span>
+            <span data-th-text="${t.dueDate}"></span>
+        </li>
+    </ol>
+
+</body>
+</html>

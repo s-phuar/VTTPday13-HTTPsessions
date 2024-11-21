@@ -42,7 +42,7 @@ public class TaskController {
 
         taskList.add(Tasks);
 
-        model.addAttribute("Tasks", Tasks);
+        model.addAttribute("Tasks", new Tasks()); //lets us send a fresh object to index, if not name/prio is pre-filled with prior attempts
         model.addAttribute("taskList", taskList);
 
 

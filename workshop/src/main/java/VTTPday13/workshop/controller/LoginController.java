@@ -33,6 +33,7 @@ public class LoginController {
         HttpSession sess){
 
             //check whether session has a Login object, if not create one
+            // ******** note that the "Login" object passed via the @ModelAttribute is NOT the same instance as the one sess.getAttribute is trying to access
             if(sess.getAttribute("Login") == null){
                 sess.setAttribute("Login", new Login());
             }
@@ -40,15 +41,16 @@ public class LoginController {
             //access the Login object in the session
             Login sessionLogin = (Login)sess.getAttribute("Login");
 
-            String loginName  = Login.getName(); //do NOT updated to sessionLogin, we do not want form name and password to persist across the session
+            String loginName  = Login.getName(); //do NOT update session with this, we do not want form name and password to persist across the session
             String loginPassword  = Login.getPassword();
-            int counter  = sessionLogin.getAttempts();
+            int counter  = sessionLogin.getAttempts(); //grab session's instance of Login's counter
             String captcha = Login.getCaptcha();
 
 
 
             //fail to login
             if ((!loginName.equals("Samuel") || !loginPassword.equals("abc")) && counter <= 2 ){
+                //sessionLogin.trackFails() updates the session's instance of Login, across multiple attempts within the same session as long as the session remains active
                 sessionLogin.trackFails();
 
                 model.addAttribute("attempts", sessionLogin.getAttempts()); //return to index with this data

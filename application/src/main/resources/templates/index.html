@@ -22,7 +22,9 @@
                <td>Name true name: </td>
                <td>
                   <!-- setName(), getName() -->
-                  <!-- *{name} binds the name input to the name property of the reg object -->
+                  <!-- *{name} binds the name input to the name property of the reg object. Handles binding and submission -->
+                   <!-- ${reg.name} displays the name property of the reg object in the index.html page. Does not handle bindign and submission -->
+                    <!-- however, both version function the same in this context -->
                   <input type="text" data-th-field="*{name}"> 
                   <span 
                      data-th-if="${#fields.hasErrors('name')}"
@@ -47,6 +49,7 @@
                <td>
                   <!-- setComments(), getComments() -->
                   <!-- *{comments} binds the comments input to the comments property of the reg object -->
+                   <!-- note that name="comments" is redundant, data-th-field already fulfils that role. I tested without name and still works -->
                   <textarea name="comments" rows="5" cols="30" data-th-field="*{comments}"></textarea>
                </td>
             </tr>

@@ -27,12 +27,12 @@ public class RegistrationController {
     // POST /registration
     @PostMapping("/obj")
     public String postRegistrationObj(
-          @Valid @ModelAttribute("reg") Registration registration, //new instance of Registration object is instatiated everytime we POST in html
+          @Valid @ModelAttribute("reg") Registration registration, //grabs reg object with binded data from the index.html form
           // BindingResult must follow @Valid immediately
           BindingResult bindings, Model model, HttpSession sess) {
  
-       System.out.printf("---- bindings: %b\n", bindings.hasErrors());
-       System.out.printf("---- registration: %s\n", registration); //prints the toString method in Registration class 
+       System.out.printf("---- bindings: %b\n", bindings.hasErrors()); //prints whether theres error or not
+       System.out.printf("---- registration: %s\n", registration); //prints the toString method in Registration class, for the current registration object
  
        //if there are errors in validation, show landing page immediately with error prompt
        if (bindings.hasErrors()) 
@@ -58,15 +58,18 @@ public class RegistrationController {
           // Initialize session by creating a list
           regList = new LinkedList<>();
           // Add to the session
-          sess.setAttribute(REG_LIST, regList); //store freshly createted regList in the session
+          sess.setAttribute(REG_LIST, regList); //store freshly started regList in the session
        }
  
-       regList.add(registration);
+       regList.add(registration); //registration grabbed from Modelattribute
  
        model.addAttribute("email", "fred@gmail.com"); //hardcoded to fred@gmail.com, for the 1st iteration of the 'registered' email check example
- 
-       model.addAttribute("reg", registration); //for 2nd and 3rd of the email checkers in 'registered'
-       model.addAttribute("regList", regList);
+       model.addAttribute("prevName", prevName); //sending over name from prior attempt
+
+       prevName = registration.getName();
+
+       model.addAttribute("reg", registration); //sending over current reg object, for 2nd and 3rd of the email checkers in 'registered'
+       model.addAttribute("regList", regList); //sending over most up to date regList
  
        return "registered";
     }
